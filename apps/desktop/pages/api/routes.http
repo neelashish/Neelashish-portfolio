@@ -1,0 +1,9 @@
+POST http://localhost:3001/api/contact/
+Content-Type: application/json
+
+{
+    "name": "Neelashish",
+    "email": "hello@neelashish.dev",
+    "company": "Neelashish Corp",
+    "message": "foobar123"
+}

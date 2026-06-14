@@ -1,0 +1,365 @@
+import { JSX } from "react";
+import { SubViewNavigation, SubViewParams } from "./AboutView";
+import styles from './AboutView.module.css';
+import Image from 'next/image';
+
+
+function ProjectImage(props: { src: string, alt: string, label?: string, labelNumber?: number }) {
+  const { src, alt, label, labelNumber } = props;
+
+  return (<>
+      <div className={styles['project-image-container']}>
+        <Image
+          src={src}
+          alt={alt}
+          fill
+          quality={90}
+          style={{ objectFit: 'contain' }}
+          sizes="400px, 800px, 1024px"
+        />
+      </div>
+      {label && <span className={styles['project-image-label']}><b>Label {labelNumber ?? 1}: </b>{label}</span>}
+    </>
+  );
+}
+
+function ProjectPage(props: { title: string, params: SubViewParams, content: JSX.Element }) {
+  const params = props.params;
+
+  function openContactApp() {
+    params.manager.open('/Applications/Contact.app');
+  }
+
+  function englishContent() {
+    const contact = (<>
+      <p>If you have any questions or comments, please contact me via the <a onClick={() => openContactApp()} href='#contact'>contact application</a> or shoot me an email at <a href="mailto:hello@neelashish.dev">hello@neelashish.dev</a></p>
+    </>);
+
+    return { contact };
+  }
+
+  function dutchContent() {
+    return englishContent();
+  }
+
+  const content = params.language === 'nl' ? dutchContent() : englishContent();
+  const backToProjects = params.language === 'nl' ? 'Terug naar projecten' : 'Back to projects';
+
+  return (<>
+    <div data-subpage className={styles['subpage']}>
+      { SubViewNavigation(params) }
+      <div data-subpage-content className={styles['subpage-content']}>
+        <h1>{props.title}</h1>
+        <button onClick={() => params.changeParent('projects')} className={styles['button-link']}>{backToProjects}</button>
+        { props.content }
+
+        <h3>Contact</h3>
+        { content.contact }
+
+        <button onClick={() => params.changeParent('projects')} className={styles['button-link']}>{backToProjects}</button>
+      </div>
+    </div>
+  </>);
+}
+
+export function ProjectRedisClone(params: SubViewParams) {
+  function RenderEnglishContent() {
+    return (
+      <div>
+        <p>In 2024 I came across a website (<a href="https://codecrafters.io" target="blank" rel="noreferrer">codecrafters.io</a>) where you could create programming challenges, these challenges consist of rebuilding applications that are used in the read world.</p>
+
+        <p>While creating these applications you will learn about different concepts and how to apply these concepts in your own application.</p>
+
+        <p>One of the reasons I decided to build a coderafters challenge was to demonstrate my familiarity with building more complex applications, in system level programming languages.</p>
+
+        <p>The application I chose to recreate was a Redis server. Redis is a distributed key-value database. This meant that I had to build the database logic but also the logic needed to synchronize different instances of the database.</p>
+
+        <p>After working on the Redis server for about two weeks, I had a version that passed all of the codecrafters' test cases.</p>
+        
+        <h3>Technology</h3>
+        <p>
+          Rust<br/> 
+          <a target="blank" rel="noreferrer" href="https://github.com/neelashish/codecrafters-redis-rust">Link</a> to the code of the project.
+        </p>
+      </div>
+    );
+  }
+
+  function RenderDutchContent() {
+    return RenderEnglishContent();
+  }
+
+  let content = params.language === 'nl' ? RenderDutchContent() : RenderEnglishContent();
+
+  return ProjectPage({title: 'Redis clone', content, params});
+}
+
+export function ProjectPortfolio2024(params: SubViewParams) {
+  function RenderEnglishContent() {
+    return (
+      <div>
+        <p>Somewhere in 2023 I decided it might be time to replace my portfolio website. As it was a long time ago that build my original one.</p>
+
+        <p>After looking at some portfolio showcases of some other developers, I was very impressed by Henry Heffernan’s showcase (<a rel="noreferrer" target="_blank" href="https://henryheffernan.com/">https://henryheffernan.com/</a>). And decided to build something similar to it. Although I wanted to build a more Unix like operating system.</p>
+
+        <p>So I started to work on my first prototype. My prototype was an attempt to render the scene with a “cutout” shader, so it would display the content of the monitor through the 3D scene. After a successful attempt, I decided to work on the real thing.</p>
+
+        <ProjectImage src="/images/project-portfolio.png" alt="Portfolio image" label="Portfolio at the end of the development cycle" />
+
+        <p>Now building a portfolio website is a great opportunity to try out some new technologies, so for this project I decided to try out React within the NextJS framework. And now after I finished it, I would say that the choice is good. I had some troubles at first with the way React has to handle its data and the rules of hooks, but at the end I was quite comfortable with it.</p>
+
+        <p>One of the things I really wanted to build was a virtual file system, where the user would be able to actually drag and drop files like a real operating system. This file system would also be the corner stone on how the user would interact with the website, just like many other operating systems.</p>
+
+        <p>Another thing I really wanted to get right, was browser support and mobile support. Due to the weird nature of the how this portfolio website works, it landed itself in many not well supported use cases of a browser. This led to many browser specific ways of handling certain features. Mobile support was a bit hard to do, as I needed a custom implementation for zooming in and out of the website. Due to some technical difficulties zooming has a delayed effect.</p>
+
+        <p>This project was very fun to build, but it took way longer than originally expected. Funny enough, this wasn’t due to the programming. This was mainly due to me under estimating how hard graphic design and 3D modelling would be, and me wanting to deliver a high quality product and not just some ”programmer art”.</p>
+
+        <h3>Technology</h3>
+        <p>
+          React, NextJS, TypeScript and webgl<br/>
+          <a target="blank" rel="noreferrer" href="https://github.com/neelashish/Portfolio-next">Link</a> to the code of the project.
+        </p>
+      </div>
+    );
+  }
+
+  function RenderDutchContent() {
+    return RenderEnglishContent();
+  }
+
+  let content = params.language === 'nl' ? RenderDutchContent() : RenderEnglishContent();
+
+  return ProjectPage({title: 'Portfolio 2024', content, params});
+}
+
+export function ProjectJScript(params: SubViewParams) {
+  function RenderEnglishContent() {
+    return (
+      <div>
+        <p>Neelashish-Script is a small half complete runtime I wrote at the end of 2022 in Rust. The reason why I build this, was to get a better grasp on how programs are actually parsed and executed, I also used this program as an opportunity to improve my Rust skills. The runtime is based on my own interpretation of the JavaScript standard without focusing too much on the details. It uses an Esprima inspired abstract syntax tree as an internal data structure to parse the program.</p>
+
+        <ProjectImage src="/images/project-neelashish-script.png" alt="Neelashish-script's test cases" label="Neelashish-script's test cases being run" />
+
+        <p>Within this project, I decided to write a lot of unit tests. To capture as much unexpected behavior changes as possible, and I must say. I liked the whole experience.</p>
+
+        <p>It is not completed due to the large amount of work that goes into a language runtime and me being contend with the knowledge I learned from this project.</p>
+
+        <h3>Technology</h3>
+        <p>
+          Rust and the ECMAScript documentation<br/>
+          <a target="blank" rel="noreferrer" href="https://github.com/neelashish/neelashish-script">Link</a> to the code of the project.
+        </p>
+      </div>
+    );
+  }
+
+  function RenderDutchContent() {
+    return RenderEnglishContent();
+  }
+
+  let content = params.language === 'nl' ? RenderDutchContent() : RenderEnglishContent();
+
+  return ProjectPage({title: 'J-Script', content, params});
+}
+
+export function ProjectAdventOfCode(params: SubViewParams) {
+  function RenderEnglishContent() {
+    return (
+      <div>
+        <p>In December of 2022 I decided to do the Advent of Code challenges. Due to having time available because I was having my vacation, and thinking this would be a great opportunity to improve my knowledge about Rust and the software engineering problems in general. I got to day 16 before I got a headache for a few days and lost the  motivation to continue AoC.</p>
+
+        <ProjectImage src="/images/project-advent-of-code.png" alt="Advent of Code process" label="Advent of Code progress" />
+
+        <h3>Technology</h3>
+        <p>Rust</p>
+    </div>
+    );
+  }
+
+  function RenderDutchContent() {
+    return RenderEnglishContent();
+  }
+
+  let content = params.language === 'nl' ? RenderDutchContent() : RenderEnglishContent();
+
+  return ProjectPage({title: 'Advent of Code', content, params});
+}
+
+export function ProjectPortfolio2021(params: SubViewParams) {
+  function RenderEnglishContent() {
+    return (
+      <div>
+        <p>At my university were required to do two internships, to make my applications stand out a bit more I decided to make a eye-catching portfolio.</p>
+
+        <ProjectImage src="/images/project-portfolio-2021.png" alt="Portfolio website 2021" label="A look at the portfolio website" />
+
+        <p>I was very concerned with bundle size back then, and I decided to roll my own WebGL context to render the beam the video is played on. Let’s say I learned a lot of this project, and why my current portfolio uses Three.</p>
+
+        <h3>Technology</h3>
+        <p>
+          TypeScript, Angular and webgl<br/>
+          You can see the site <a rel="noreferrer" target="_blank" href="https://old.neelashish.dev">here</a>.
+        </p>
+      </div>
+    );
+  }
+
+  function RenderDutchContent() {
+    return RenderEnglishContent();
+  }
+
+  let content = params.language === 'nl' ? RenderDutchContent() : RenderEnglishContent();
+
+  return ProjectPage({title: 'Portfolio 2021', content, params});
+}
+
+export function ProjectTBot(params: SubViewParams) {
+  function RenderEnglishContent() {
+    return (
+      <div>
+        <p>For the final project of the robotics minor (2020) the students had to come up with their own project, and build them. We stumbled onto the idea to build a robot that would collect tennis balls of the field. Because what is more annoying then fetching the balls on the ground after a good exercise.</p>
+
+        <h3>Technology</h3>
+        <p>The robot works as follows. The robot will drive around until it finds a tennis ball via image recognition. If the robot finds a tennis ball, he will drive towards it and collect it. After that it will calculate a route to the chosen collection point to drop off the tennisball.</p>
+
+        <video className={styles['project-video']} src="/videos/tennisbot.mp4" autoPlay muted loop disablePictureInPicture></video>
+
+        <p>We used an already on the market Arduino shield, named the Zumo. This gave us a good fundamental to continue working on. The only change we made to the Zumo is adding a 3D printed fork, to move around the balls. For the rest of the Robot we used an Raspberry Pi and a Google Coral. This device is connected to the Zumo with a serial connection. And functions as the brain behind the robot. This means that the it runs the web GUI and does most of the calculations.</p>
+
+        <p>To detect the current location of the robot, we used a few Bluetooth beacons. The robot knows the location of the beacons and uses RSSI to calculate the distance between each other.</p>
+
+        <p>Almost all the software is written in C or in Python. All the software on the embedded devices (Arduino and Beacons) is written in C and the software on the Raspberry Pi is written in Python.</p>
+
+        <h3>Team</h3>
+        <ul>
+          <li>- Sergi Philipsens</li>
+          <li>- Neelashish</li>
+        </ul>
+      </div>
+    );
+  }
+
+  function RenderDutchContent() {
+    return RenderEnglishContent();
+  }
+
+  let content = params.language === 'nl' ? RenderDutchContent() : RenderEnglishContent();
+
+  return ProjectPage({title: 'T-Bot', content, params});
+}
+
+export function ProjectYoui(params: SubViewParams) {
+  function RenderEnglishContent() {
+    return (
+      <div>
+        <p>For the last group project of my second year of university (2019) I worked on a prototype Android dating app called Youi. One of the must-haves was that the app should contain the functionality to video call your dating partner. This functionality was eventually implemented with a from scratch peer-to-peer WebRTC solution.</p>
+
+        <video className={styles['project-video']} src="/videos/youi.mp4" autoPlay muted loop disablePictureInPicture></video>
+
+        <h3>Technology</h3>
+        <p>
+          Kotlin for the Android based on a MVVM structure.<br/>
+          NodeJS for the Firebase cloud functions.<br/>
+          WebRTC for the peer-to-peer videocall solution.
+        </p>
+
+        <h3>Team</h3>
+        <ul>
+          <li>- Ewout Millink</li>
+          <li>- Omid Wiar</li>
+          <li>- Wim de Groot</li>
+          <li>- Vincent Nuis</li>
+          <li>- Rutger Uijtendaal</li>
+          <li>- Neelashish</li>
+        </ul>
+      </div>
+    );
+  }
+
+  function RenderDutchContent() {
+    return RenderEnglishContent();
+  }
+
+  let content = params.language === 'nl' ? RenderDutchContent() : RenderEnglishContent();
+
+  return ProjectPage({title: 'Youi', content, params});
+}
+
+export function ProjectPCParts(params: SubViewParams) {
+  function RenderEnglishContent() {
+    return (
+      <div>
+        <p>PCParts is a webshop that I build in the third period of my second year of university (2019). In this period there was a class where you had to build your own webshop based on the technologies Angular 7 & Dropwizard.</p>
+
+        <video className={styles['project-video']} src="/videos/pcparts.mp4" autoPlay muted loop disablePictureInPicture></video>
+      </div>
+    );
+  }
+
+  function RenderDutchContent() {
+    return RenderEnglishContent();
+  }
+
+  let content = params.language === 'nl' ? RenderDutchContent() : RenderEnglishContent();
+
+  return ProjectPage({title: 'PCParts', content, params});
+}
+
+export function ProjectAlbert(params: SubViewParams) {
+  function RenderEnglishContent() {
+    return (
+      <div>
+        <p>Albert is a simple accouting program designed for small to medium-sized companies. Te idea was to update the old legacy project from the project owner to a new modern web based project.</p>
+
+        <p>This project was made by a group of 5 students, of which I was mostly involved in setting up the CI & CD pipeline. For the rest of the project I build a table class (a bit ORM like) that had the possibility of lazy loading and inline editing of the data.</p>
+
+        <video className={styles['project-video']} src="/videos/albert.mp4" autoPlay muted loop disablePictureInPicture></video>
+
+        <h3>Technology</h3>
+        <p>Angular 7, PostgresSQL, Dropwizard and TravisCI</p>
+
+        <h3>Team</h3>
+        <ul>
+          <li>- Alexander van Dam</li>
+          <li>- Bashar Farah</li>
+          <li>- Maarten Berden</li>
+          <li>- Sander Frentz</li>
+          <li>- Neelashish</li>
+        </ul>
+      </div>
+    );
+  }
+
+  function RenderDutchContent() {
+    return RenderEnglishContent();
+  }
+
+  let content = params.language === 'nl' ? RenderDutchContent() : RenderEnglishContent();
+
+  return ProjectPage({title: 'Albert', content, params});
+}
+
+export function ProjectPaintboy(params: SubViewParams) {
+  function RenderEnglishContent() {
+    return (
+      <div>
+        <p>Paintboy is a game that was meant to promote my previous school the Grafisch Lyceum Rotterdam. (2016) This project was build by a team of 6. Whereof 2 programmers and 4 game artists. This game was build using Unity 5 and C#.</p>
+
+        <video className={styles['project-video']} src="/videos/paintboy.mp4" autoPlay muted loop disablePictureInPicture></video>
+
+        <p>My main work on this game was the movement of the player, the shooting mechanics and the camera shake implementation.</p>
+
+        <h3>Technology</h3>
+        <p>Unity 5 and C#</p>
+      </div>
+    );
+  }
+
+  function RenderDutchContent() {
+    return RenderEnglishContent();
+  }
+
+  let content = params.language === 'nl' ? RenderDutchContent() : RenderEnglishContent();
+
+  return ProjectPage({title: 'Paintboy', content, params});
+}
