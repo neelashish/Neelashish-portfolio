@@ -60,7 +60,7 @@ function getDesktopTargetUrl(): string {
   const env = process.env.NEXT_PUBLIC_VERCEL_ENV ?? 'local';
 
   if (env === 'production') {
-    return 'https://portfolio-v1-web-desk-silk.vercel.app/';
+    return 'https://neelashish-portfolio-web.vercel.app/';
   }
 
   if (env === 'preview' || env === 'development') {
