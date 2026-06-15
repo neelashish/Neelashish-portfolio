@@ -56,7 +56,7 @@ export class SoundService {
     audio.volume = volume;
   }
 
-  // NOTE(Joey): Due to how the Audio interface only mutes and unmutes its own "audio" and not other audio elements that might be
+  // NOTE(Neelashish): Due to how the Audio interface only mutes and unmutes its own "audio" and not other audio elements that might be
   // toggled by the isEnabled status. Having these methods public might give the wrong impression, so we refrain from that.
   private muteAll(): void {
     for (const key of this.activeAudio.keys()) {

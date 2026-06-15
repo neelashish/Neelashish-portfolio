@@ -72,7 +72,7 @@ export function isRpcOrigin(data: TouchData): boolean {
 }
 
 export const getDisplay = (scene: Scene): Mesh | undefined => {
-  // NOTE(Joey): This makes it that there may only be *one* display on the scene.
+  // NOTE(Neelashish): This makes it that there may only be *one* display on the scene.
   const parent = scene.children.find(x => x.name === DisplayParentName);
   const display = parent?.children.find(x => x.name === DisplayName) as Mesh | undefined;
 

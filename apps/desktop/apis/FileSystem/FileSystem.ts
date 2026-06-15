@@ -325,7 +325,7 @@ export function createBaseFileSystem(): FileSystem {
 
   const readmeText = `Hey, welcome to my portfolio website!
 
-This website is meant as an interactive showcase of my work as software developer for the last few years.
+This website is meant as an interactive showcase of my curiosity as a explorer 
 
 Please enjoy, and explore as much as you would like.
 `;
@@ -375,7 +375,7 @@ export function removeDebugAppFromFileSystem(fs: FileSystem): void {
 
 function entriesWithinSelection(entries: Point[], x: number, y: number, dimensions: { width: number, height: number }): number {
   const { width, height } = dimensions;
-  // NOTE(Joey): The width & height are used for both the new incoming entry as the already existing entries.
+  // NOTE(Neelashish): The width & height are used for both the new incoming entry as the already existing entries.
   // It might be a good idea to make this static to the file system/configuration, instead of just randomly defined
 
   let overlapping = 0;

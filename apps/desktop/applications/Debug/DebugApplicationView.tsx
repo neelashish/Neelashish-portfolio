@@ -7,7 +7,7 @@ function getTargetUrl(time: number): string {
   if (env === 'local') {
     return `http://192.168.178.134:8080/waifu?t=${time}`;
   } else {
-    return `https://waifu.joeyderuiter.me/waifu?t=${time}`;
+    return `https://waifu.neelashish.dev/waifu?t=${time}`;
   }
 }
 

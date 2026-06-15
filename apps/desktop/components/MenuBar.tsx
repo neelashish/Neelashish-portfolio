@@ -107,26 +107,6 @@ function renderClock(date: Date | undefined) {
   return <>{time}</>
 }
 
-function languageSelection(t: TFunction, i18n: I18n) {
-  function changeLanguage(language: string) {
-    i18n.changeLanguage(language);
-  }
-
-  const englishEntry  = `${t('language.tags.en')} - ${t('language.english')}`;
-  const dutchEntry    = `${t('language.tags.nl')} - ${t('language.dutch')}`;
-
-  let entry: MenuEntry = {
-    displayOptions: {},
-    name: i18n.language.toLowerCase(),
-    items: [
-      { kind: 'action', value: englishEntry, action: () => changeLanguage('en')},
-      { kind: 'action', value: dutchEntry, action: () => changeLanguage('nl')}
-    ]
-  }
-
-  return RenderMenu(entry);
-}
-
 type MenuBarProps = {
   manager: ApplicationManager
 }

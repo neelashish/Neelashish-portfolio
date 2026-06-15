@@ -229,7 +229,7 @@ export function FolderView(props: FolderViewProps) {
       isDragging.current = true;
 
       // Propagate drag start event
-      // NOTE(Joey): Not sure why the scrollOffset{x/y} need to be multiplied by 2
+      // NOTE(Neelashish): Not sure why the scrollOffset{x/y} need to be multiplied by 2
       fileDraggingSession.current = dragAndDrop.start(data, evt.clientX - scrollOffsetX * 2, evt.clientY - scrollOffsetY * 2);
     }
     

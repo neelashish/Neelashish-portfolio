@@ -100,7 +100,7 @@ function parseRedirection(fullCommand: string): Command[] {
 export class Shell {
   private promptString = `${ansiColors.white("{hostname}")} ${ansiColors.magentaBright("::")} ${ansiColors.greenBright("{path}")} ${ansiColors.blueBright("%")} `;
 
-  private hostname: string = "j-os";
+  private hostname: string = "baka-os";
   private path: string = HomeDirectory;
   private relativePath: string = '~';
 

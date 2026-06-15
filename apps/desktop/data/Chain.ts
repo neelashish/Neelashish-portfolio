@@ -35,7 +35,7 @@ export class ChainIterator<T> implements Iterable<Node<T>> {
 
     return {
       next: () => {
-        // NOTE(Joey): Not sure, why value is required here, as it is not used in the for ... of loop
+        // NOTE(Neelashish): Not sure, why value is required here, as it is not used in the for ... of loop
         if (!this.node) { return {done: true, value: value!}}
 
         value = this.node;

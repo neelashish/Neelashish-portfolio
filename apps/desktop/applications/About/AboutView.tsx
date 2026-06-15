@@ -1,10 +1,11 @@
 import { WindowProps } from '@/components/WindowManagement/WindowCompositor';
 import { JSX, useEffect, useRef, useState } from 'react';
+import Image from 'next/image';
 import styles from './AboutView.module.css';
 import { BaseApplicationManager } from '../ApplicationManager';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
-import { ProjectAdventOfCode, ProjectAlbert, ProjectJScript, ProjectPCParts, ProjectPaintboy, ProjectPortfolio2021, ProjectPortfolio2024, ProjectRedisClone, ProjectTBot, ProjectYoui } from './Projects';
+import { ProjectUSMurders, ProjectTempComparison } from './Projects';
 import { ScreenResolution } from '@/apis/Screen/ScreenService';
 
 type SubView = (
@@ -12,16 +13,8 @@ type SubView = (
   'about' |
   'experience' |
   'projects' |
-  'project-redis' |
-  'project-portfolio-2024' |
-  'project-j-script' |
-  'project-advent-of-code' |
-  'project-portfolio-2021' |
-  'project-t-bot' |
-  'project-youi' |
-  'project-pcparts' |
-  'project-albert' |
-  'project-paintboy' |
+  'project-us-murders' |
+  'project-temp-comparison' |
   'contact'
 );
 
@@ -33,24 +26,16 @@ export type SubViewParams = {
   language: string
 }
 
-function Contact(props: { manager: BaseApplicationManager, language: string }) {
+function Contact(props: { manager: BaseApplicationManager, language: string }): JSX.Element {
   function openContactApp() {
     props.manager.open('/Applications/Contact.app');
   }
 
-  function englishContent() {
-    return (<>
+  return (
+    <>
       <p>If you have any questions or comments, please contact me via the <a onClick={() => openContactApp()} href='#contact'>contact application</a> or shoot me an email at <a href="mailto:hello@neelashish.dev">hello@neelashish.dev</a></p>
-    </>);
-  }
-
-  function dutchContent() {
-    return (<>
-      <p>Als je opmerkingen of vragen hebt, neem contact met mij op via de <a onClick={() => openContactApp()} href='#contact'>contact applicatie</a> of schiet een mailtje naar met via <a href='mailto:hello@neelashish.dev'>hello@neelashish.dev</a></p>
-    </>);
-  }
-
-  return props.language === 'nl' ? dutchContent() : englishContent();
+    </>
+  );
 }
 
 // CV download component removed
@@ -102,8 +87,8 @@ function AboutSubView(params: SubViewParams) {
     params.manager.open('/Applications/Contact.app');
   }
 
-  function ImageOfMyself(props: { language: string }) {
-    const text = props.language === 'nl' ? 'Ikzelf, maart 2024' : 'Me, March 2024';
+  function ImageOfMyself() {
+    const text = 'neelashish';
 
     return (<>
       <div className={styles['image-container']}>
@@ -114,10 +99,6 @@ function AboutSubView(params: SubViewParams) {
   }
 
 
-  function RenderDutchContent() {
-    return RenderEnglishContent();
-  }
-
   function RenderEnglishContent() {
     return (
       <div>
@@ -127,11 +108,11 @@ function AboutSubView(params: SubViewParams) {
           I’m Neelashish, a 1st-year B.Tech student in Artificial Intelligence and Data Science.
         </p>
 
-        <p>Thanks for taking the time to explore my portfolio. I hope you enjoy it as much as I did customizing and setting it up. If you have any questions or comments, please contact me via the <a onClick={() => openContactApp()} href='#contact'>contact application</a> or shoot me an email at <a href="mailto:hello@neelashish.dev">hello@neelashish.dev</a>.</p>
+        <p>Thanks for taking the time to explore my portfolio. I hope you enjoy it as much as I did customizing and setting it up. If you have any questions or comments, please contact me via the <a onClick={() => openContactApp()} href='#contact'>contact application</a> or shoot me an email at <a href="mailto:neelashish0@gmail.com">neelashish0@gmail.com</a>.</p>
 
         <h2>About me</h2>
 
-        <ImageOfMyself language='en'/>
+        <ImageOfMyself/>
 
         <p>My journey into technology began with a strong interest in how data and artificial intelligence are shaping our world. Starting my B.Tech in AI & Data Science in August 2025, I decided to dedicate myself to building a strong foundation in core areas: mathematics, statistics, machine learning, artificial intelligence, and open-source software development.</p>
 
@@ -152,7 +133,7 @@ function AboutSubView(params: SubViewParams) {
     <div data-subpage className={styles['subpage']}>
       { SubViewNavigation(params) }
       <div data-subpage-content className={styles['subpage-content']}>
-        { params.language === 'nl' ? RenderDutchContent() : RenderEnglishContent() }
+        { RenderEnglishContent() }
       </div>
     </div>
   </>);
@@ -168,7 +149,7 @@ function ExperienceSubView(params: SubViewParams) {
 
         <h3>Academic & Self-Study Focus</h3>
         <p>
-          <b>MIT 18.06 Linear Algebra</b>: Mastered solving systems of equations, matrix operations, matrix multiplication, inverse matrices, Gaussian elimination, row operations, and vector spaces.<br/>
+          <b>Linear Algebra</b>: Mastered solving systems of equations, matrix operations, matrix multiplication, inverse matrices, Gaussian elimination, row operations, and vector spaces.<br/>
           <b>AI Skills</b>: Completed <i>ChatGPT Prompt Engineering for Developers</i>. Learned prompt design, role prompting, few-shot prompting, structured prompting, and iterative refinement.
         </p>
 
@@ -209,8 +190,33 @@ function ProjectsSubView(params: SubViewParams) {
     <div data-subpage className={styles['subpage']}>
       { SubViewNavigation(params) }
       <div data-subpage-content className={styles['subpage-content']}>
-        <h1 className={styles['page-h1']}>{t("about.navigation.projects")}</h1>
-        <p>Projects will be added soon!</p>
+        <h1 className={styles['page-h1']}>My Projects</h1>
+        <p style={{ marginBottom: '1rem' }}>Mini data science projects built with R</p>
+        
+        <ul className={styles['project-list']} style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: '10px' }}>
+          <li>
+            <button className={styles['project-button']} onClick={() => params.changeParent('project-us-murders')} style={{ width: '100%', display: 'block' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Image src="/icons/skills-icon.png" alt="Project Icon" width={32} height={32} />
+                <div style={{ textAlign: 'left' }}>
+                  <span style={{ fontWeight: 'bold', display: 'block' }}>Project 1: U.S. Murders Data Analysis</span>
+                  <span style={{ fontSize: '0.85em', color: '#555' }}>Tech Used: R (dslabs, base plotting)</span>
+                </div>
+              </div>
+            </button>
+          </li>
+          <li>
+            <button className={styles['project-button']} onClick={() => params.changeParent('project-temp-comparison')} style={{ width: '100%', display: 'block' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Image src="/icons/skills-icon.png" alt="Project Icon" width={32} height={32} />
+                <div style={{ textAlign: 'left' }}>
+                  <span style={{ fontWeight: 'bold', display: 'block' }}>Project 2: Monthly Temperature Comparison</span>
+                  <span style={{ fontSize: '0.85em', color: '#555' }}>Tech Used: R (base plotting)</span>
+                </div>
+              </div>
+            </button>
+          </li>
+        </ul>
       </div>
     </div>
   </>);
@@ -222,6 +228,8 @@ function RenderSubView(view: SubView, params: SubViewParams): JSX.Element {
     case 'about': return AboutSubView(params);
     case 'experience': return ExperienceSubView(params);
     case 'projects': return ProjectsSubView(params);
+    case 'project-us-murders': return ProjectUSMurders(params);
+    case 'project-temp-comparison': return ProjectTempComparison(params);
     case 'contact': return (<Contact manager={params.manager} language={params.language} />);
   }
   
