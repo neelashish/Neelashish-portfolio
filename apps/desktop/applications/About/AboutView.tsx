@@ -105,7 +105,7 @@ function AboutSubView(params: SubViewParams) {
         <h1 className={styles['page-h1']}>Welcome</h1>
 
         <p>
-          I’m Neelashish, a 1st-year B.Tech student in Artificial Intelligence and Data Science.
+          I’m Neelashish, a 2nd-year B.Tech student in Artificial Intelligence and Data Science.
         </p>
 
         <p>Thanks for taking the time to explore my portfolio. I hope you enjoy it as much as I did customizing and setting it up. If you have any questions or comments, please contact me via the <a onClick={() => openContactApp()} href='#contact'>contact application</a> or shoot me an email at <a href="mailto:neelashish0@gmail.com">neelashish0@gmail.com</a>.</p>
