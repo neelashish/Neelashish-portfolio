@@ -106,3 +106,25 @@ export function ProjectTempComparison(params: SubViewParams) {
 
   return ProjectPage({title: 'Monthly Temperature Comparison', content, params});
 }
+
+export function ProjectNetflixAnalyzer(params: SubViewParams) {
+  function RenderEnglishContent() {
+    return (
+      <div>
+        <p>This project analyzes Netflix content data to uncover trends in movies and TV shows available on the platform.</p>
+        <p>It explores patterns such as content type distribution (Movies vs. TV Shows), top producing countries, genre frequency, rating distributions, and release year trends — providing insights into how Netflix's catalog has evolved over time.</p>
+
+        <h3>Technology</h3>
+        <p>Python (Pandas, Matplotlib, Seaborn)</p>
+
+        <h3>Source Code</h3>
+        <p>
+          <a target="_blank" rel="noreferrer" href="https://github.com/neelashish/Netflix-Data-analyzer.git">GitHub Repository</a>
+        </p>
+      </div>
+    );
+  }
+  let content = RenderEnglishContent();
+
+  return ProjectPage({title: 'Netflix Data Analyzer', content, params});
+}

@@ -5,7 +5,7 @@ import styles from './AboutView.module.css';
 import { BaseApplicationManager } from '../ApplicationManager';
 import { useTranslation } from 'react-i18next';
 import { TFunction } from 'i18next';
-import { ProjectUSMurders, ProjectTempComparison } from './Projects';
+import { ProjectUSMurders, ProjectTempComparison, ProjectNetflixAnalyzer } from './Projects';
 import { ScreenResolution } from '@/apis/Screen/ScreenService';
 
 type SubView = (
@@ -15,6 +15,7 @@ type SubView = (
   'projects' |
   'project-us-murders' |
   'project-temp-comparison' |
+  'project-netflix-analyzer' |
   'contact'
 );
 
@@ -216,6 +217,17 @@ function ProjectsSubView(params: SubViewParams) {
               </div>
             </button>
           </li>
+          <li>
+            <button className={styles['project-button']} onClick={() => params.changeParent('project-netflix-analyzer')} style={{ width: '100%', display: 'block' }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                <Image src="/icons/skills-icon.png" alt="Project Icon" width={32} height={32} />
+                <div style={{ textAlign: 'left' }}>
+                  <span style={{ fontWeight: 'bold', display: 'block' }}>Project 3: Netflix Data Analyzer</span>
+                  <span style={{ fontSize: '0.85em', color: '#555' }}>Tech Used: Python (Pandas, Matplotlib, Seaborn)</span>
+                </div>
+              </div>
+            </button>
+          </li>
         </ul>
       </div>
     </div>
@@ -230,6 +242,7 @@ function RenderSubView(view: SubView, params: SubViewParams): JSX.Element {
     case 'projects': return ProjectsSubView(params);
     case 'project-us-murders': return ProjectUSMurders(params);
     case 'project-temp-comparison': return ProjectTempComparison(params);
+    case 'project-netflix-analyzer': return ProjectNetflixAnalyzer(params);
     case 'contact': return (<Contact manager={params.manager} language={params.language} />);
   }
   
